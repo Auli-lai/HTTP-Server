@@ -35,3 +35,50 @@ A high-performance, non-blocking HTTP server implemented in **Modern C++** based
 │   └── main.cpp
 └── web
     └── index.html
+```
+
+🚀 Quick Start
+1. Prerequisites
+Linux OS (Recommended: Ubuntu 20.04 or later)
+GCC/G++ compiler with C++11 support
+CMake (version 3.10 or higher)
+
+2. Build Instructions
+
+```
+# Clone the repository (or navigate to your project folder)
+# git clone <your-repo-url>
+# cd http_server
+
+# Create a build directory
+mkdir build
+cd build
+
+# Generate Makefiles
+cmake ..
+
+# Compile the project
+make
+
+```
+3. Run the Server
+```
+
+./http_server
+
+```
+
+4. Testing
+
+```
+# Test dynamic text response
+curl -v http://localhost:8080/hello
+
+# Test static file response (ensure 'web/index.html' exists)
+curl -v http://localhost:8080/index.html
+
+```
+
+📄 License
+
+This project is licensed under the MIT License. Feel free to fork, modify, and submit pull requests!
