@@ -105,18 +105,28 @@ make
 ## 压力测试(wrk)
 
 wrk -t4 -c100 -d30s --latency http://127.0.0.1:8080/index.html
+
 Running 30s test @ http://127.0.0.1:8080/index.html
+  
   4 threads and 100 connections
+  
   Thread Stats   Avg      Stdev     Max   +/- Stdev
+    
     Latency   252.62ms  146.20ms   1.25s    83.62%
+    
     Req/Sec   114.86     72.46   282.00     57.59%
+ 
   Latency Distribution
+    
      50%  217.57ms
      75%  240.40ms
      90%  337.57ms
      99%  969.53ms
+  
   12657 requests in 30.03s, 15.61MB read
+
 Requests/sec:    421.47
+
 Transfer/sec:    532.19KB
 
 4线程，100连接数量，持续30s
