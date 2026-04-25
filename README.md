@@ -70,7 +70,7 @@ make
 # 或者指定端口
 ./reall_http 8000
 
-#需要把index.html文件放入build文件中
+#需要把index.html文件放入build文件夹中
 
 ```
 
