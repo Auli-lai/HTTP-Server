@@ -23,9 +23,10 @@
 ## 项目结构
 
 ```
-reall_http/
+Lightweight_http/
 ├── CMakeLists.txt      # CMake配置文件
 ├── README.md           # 项目说明文档
+├── index.html          # 静态页面
 ├── include/            # 头文件目录
 │   ├── server.h        # 服务器类头文件
 │   ├── epoll.h         # Epoll类头文件
@@ -68,6 +69,9 @@ make
 
 # 或者指定端口
 ./reall_http 8000
+
+#需要把index.html文件放入build文件中
+
 ```
 
 ## 功能说明
@@ -97,6 +101,32 @@ make
 2. 使用线程池处理请求，避免频繁创建和销毁线程
 3. 使用非阻塞I/O，提高并发性能
 4. 使用定时器管理非活动连接，释放资源
+
+## 压力测试(wrk)
+
+wrk -t4 -c100 -d30s --latency http://127.0.0.1:8080/index.html
+Running 30s test @ http://127.0.0.1:8080/index.html
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   252.62ms  146.20ms   1.25s    83.62%
+    Req/Sec   114.86     72.46   282.00     57.59%
+  Latency Distribution
+     50%  217.57ms
+     75%  240.40ms
+     90%  337.57ms
+     99%  969.53ms
+  12657 requests in 30.03s, 15.61MB read
+Requests/sec:    421.47
+Transfer/sec:    532.19KB
+
+4线程，100连接数量，持续30s
+
+QPS : 421.47
+
+50%的请求在217.57ms内完成
+75%的请求在240.40ms内完成
+90%的请求在337.57ms内完成
+99%的请求在969.53ms内完成
 
 ## 未来扩展
 
