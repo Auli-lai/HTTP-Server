@@ -1,43 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>轻量级HTTP服务器</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-            line-height: 1.6;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>reall_http — 轻量 HTTP 服务器</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f5f5f5;
+         display: flex; justify-content: center; padding: 40px 16px; }
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,.08);
+          max-width: 600px; width: 100%; padding: 32px; }
+  h1 { font-size: 1.5rem; margin-bottom: 8px; color: #333; }
+  .subtitle { color: #888; margin-bottom: 24px; }
+  h2 { font-size: 1.1rem; color: #555; margin: 24px 0 12px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+  ul { list-style: none; }
+  li { margin-bottom: 8px; }
+  a { color: #4f7cff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-size: .9em; }
+  .method { display: inline-block; width: 52px; font-weight: 600; font-size: .8rem;
+            padding: 2px 6px; border-radius: 3px; text-align: center; margin-right: 8px; }
+  .get { background: #e3f2fd; color: #1565c0; }
+  .post { background: #e8f5e9; color: #2e7d32; }
+  .put { background: #fff3e0; color: #e65100; }
+  .del { background: #fce4ec; color: #c62828; }
+  .endpoint { font-family: monospace; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>欢迎使用轻量级HTTP服务器</h1>
-        <p>这是一个由轻量级HTTP服务器提供的简单静态HTML页面。</p>
-        <p>该服务器使用C++实现，基于以下技术：</p>
-        <ul>
-            <li>Epoll 用于 I/O 多路复用</li>
-            <li>线程池用于并发处理</li>
-            <li>带应用层缓冲区的非阻塞 I/O</li>
-            <li>用于连接超时管理的定时器</li>
-        </ul>
-        <p>测试成功！</p>
-    </div>
+<div class="card">
+  <h1>🚀 reall_http</h1>
+  <p class="subtitle">基于 epoll + 线程池的 C++11 高性能 HTTP 服务器</p>
+
+  <h2>📋 功能</h2>
+  <ul>
+    <li><span class="method get">GET</span> <a href="/form">/form</a> — 表单页面</li>
+    <li><span class="method post">POST</span> <span class="endpoint">/submit</span> — 表单提交</li>
+    <li><span class="method get">GET</span> <a href="/api/data">/api/data</a> — RESTful API（JSON）</li>
+  </ul>
+
+  <h2>🔧 API 端点</h2>
+  <ul>
+    <li><span class="method get">GET</span> <span class="endpoint">/api/data</span> — 列出全部条目</li>
+    <li><span class="method get">GET</span> <span class="endpoint">/api/data/1</span> — 获取单条</li>
+    <li><span class="method post">POST</span> <span class="endpoint">/api/data</span> — 创建（JSON body）</li>
+    <li><span class="method put">PUT</span> <span class="endpoint">/api/data/1</span> — 更新</li>
+    <li><span class="method del">DELETE</span> <span class="endpoint">/api/data/1</span> — 删除</li>
+  </ul>
+
+  <h2>📊 测试</h2>
+  <pre style="background:#f8f8f8;padding:12px;border-radius:6px;font-size:.85rem;overflow-x:auto;">
+# 压力测试
+wrk -t4 -c100 -d30s --latency http://127.0.0.1:8080/index.html
+
+# REST API 测试
+curl http://127.0.0.1:8080/api/data
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"name":"hello"}' http://127.0.0.1:8080/api/data
+curl http://127.0.0.1:8080/api/data/1
+curl -X DELETE http://127.0.0.1:8080/api/data/1
+</pre>
+</div>
 </body>
 </html>
